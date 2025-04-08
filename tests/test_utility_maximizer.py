@@ -16,13 +16,13 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-from gpjax.decision_making.test_functions.continuous_functions import (
+from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
     Forrester,
     LogarithmicGoldsteinPrice,
     Quadratic,
 )
-from gpjax.decision_making.utility_maximizer import (
+from jax_decision_making.utility_maximizer import (
     AbstractSinglePointUtilityMaximizer,
     ContinuousSinglePointUtilityMaximizer,
     _get_discrete_maximizer,

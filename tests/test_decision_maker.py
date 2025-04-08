@@ -18,25 +18,25 @@ config.update("jax_enable_x64", True)
 
 import gpjax as gpx
 from gpjax.dataset import Dataset
-from gpjax.decision_making.decision_maker import (
+from jax_decision_making.decision_maker import (
     AbstractDecisionMaker,
     UtilityDrivenDecisionMaker,
 )
-from gpjax.decision_making.posterior_handler import PosteriorHandler
-from gpjax.decision_making.search_space import (
+from jax_decision_making.posterior_handler import PosteriorHandler
+from jax_decision_making.search_space import (
     AbstractSearchSpace,
     ContinuousSearchSpace,
 )
-from gpjax.decision_making.test_functions import Quadratic
-from gpjax.decision_making.utility_functions import (
+from jax_decision_making.test_functions import Quadratic
+from jax_decision_making.utility_functions import (
     AbstractSinglePointUtilityFunctionBuilder,
     ThompsonSampling,
 )
-from gpjax.decision_making.utility_maximizer import (
+from jax_decision_making.utility_maximizer import (
     AbstractSinglePointUtilityMaximizer,
     ContinuousSinglePointUtilityMaximizer,
 )
-from gpjax.decision_making.utils import (
+from jax_decision_making.utils import (
     OBJECTIVE,
     build_function_evaluator,
 )
@@ -46,7 +46,7 @@ import jax.random as jr
 import optax as ox
 import pytest
 
-from tests.test_decision_making.utils import QuadraticSinglePointUtilityFunctionBuilder
+from tests.utils import QuadraticSinglePointUtilityFunctionBuilder
 
 CONSTRAINT = "CONSTRAINT"
 

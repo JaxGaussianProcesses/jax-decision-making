@@ -19,12 +19,12 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-from gpjax.decision_making.test_functions import (
+from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
     Forrester,
     LogarithmicGoldsteinPrice,
 )
-from gpjax.decision_making.utils import (
+from jax_decision_making.utils import (
     OBJECTIVE,
     build_function_evaluator,
     get_best_latent_observation_val,

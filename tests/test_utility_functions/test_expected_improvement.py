@@ -16,15 +16,15 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-from gpjax.decision_making.test_functions.continuous_functions import (
+from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
     Forrester,
     LogarithmicGoldsteinPrice,
 )
-from gpjax.decision_making.utility_functions.expected_improvement import (
+from jax_decision_making.utility_functions.expected_improvement import (
     ExpectedImprovement,
 )
-from gpjax.decision_making.utils import (
+from jax_decision_making.utils import (
     OBJECTIVE,
     get_best_latent_observation_val,
 )
@@ -34,7 +34,7 @@ import jax.random as jr
 import pytest
 import tensorflow_probability.substrates.jax as tfp
 
-from tests.test_decision_making.utils import generate_dummy_conjugate_posterior
+from tests.utils import generate_dummy_conjugate_posterior
 
 
 @pytest.mark.parametrize(

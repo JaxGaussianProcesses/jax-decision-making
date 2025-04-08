@@ -16,16 +16,16 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-from gpjax.decision_making.test_functions.continuous_functions import Forrester
-from gpjax.decision_making.utility_functions.probability_of_improvement import (
+from jax_decision_making.test_functions.continuous_functions import Forrester
+from jax_decision_making.utility_functions.probability_of_improvement import (
     ProbabilityOfImprovement,
 )
-from gpjax.decision_making.utils import OBJECTIVE
+from jax_decision_making.utils import OBJECTIVE
 import jax
 import jax.numpy as jnp
 import jax.random as jr
 
-from tests.test_decision_making.utils import generate_dummy_conjugate_posterior
+from tests.utils import generate_dummy_conjugate_posterior
 
 
 def test_probability_of_improvement_gives_correct_value_for_a_seed():

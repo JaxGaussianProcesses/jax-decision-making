@@ -16,7 +16,7 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-from gpjax.decision_making.test_functions import (
+from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
     Forrester,
     LogarithmicGoldsteinPrice,

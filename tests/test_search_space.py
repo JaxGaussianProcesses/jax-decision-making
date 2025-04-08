@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 from beartype.roar import BeartypeCallHintParamViolation
-from gpjax.decision_making.search_space import (
+from jax_decision_making.search_space import (
     AbstractSearchSpace,
     ContinuousSearchSpace,
 )

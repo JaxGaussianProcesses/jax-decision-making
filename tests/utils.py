@@ -18,8 +18,8 @@ from beartype.typing import (
     Optional,
 )
 from gpjax.dataset import Dataset
-from gpjax.decision_making.test_functions import Quadratic
-from gpjax.decision_making.utility_functions import (
+from jax_decision_making.test_functions import Quadratic
+from jax_decision_making.utility_functions import (
     AbstractSinglePointUtilityFunctionBuilder,
     SinglePointUtilityFunction,
 )

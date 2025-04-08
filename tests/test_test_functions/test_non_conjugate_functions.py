@@ -16,7 +16,7 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-from gpjax.decision_making.test_functions import PoissonTestFunction
+from jax_decision_making.test_functions import PoissonTestFunction
 from gpjax.typing import KeyArray
 import jax.numpy as jnp
 import jax.random as jr

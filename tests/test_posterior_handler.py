@@ -20,8 +20,8 @@ from beartype.typing import (
     Callable,
     Union,
 )
-from gpjax.decision_making.posterior_handler import PosteriorHandler
-from gpjax.decision_making.test_functions import (
+from jax_decision_making.posterior_handler import PosteriorHandler
+from jax_decision_making.test_functions import (
     Forrester,
     PoissonTestFunction,
 )
