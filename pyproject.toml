@@ -2,13 +2,16 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.setuptools]
+license-files = [ "LICENSE.txt" ]
+
 [project]
 name = "jax-decision-making"
 dynamic = ["version"]
 description = 'Decision making with Gaussian processes in JAX.'
 readme = "README.md"
 requires-python = ">=3.10, <3.13"
-license = "Apache-2.0"
+license = { text = "MIT" }
 keywords = ["gaussian-processes", "jax", "decision-making"]
 authors = [
   { name = "Thomas Pinder", email = "tompinder@live.co.uk" },
