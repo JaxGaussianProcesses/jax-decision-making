@@ -18,6 +18,12 @@ config.update("jax_enable_x64", True)
 
 import gpjax as gpx
 from gpjax.dataset import Dataset
+from gpjax.typing import KeyArray
+import jax.numpy as jnp
+import jax.random as jr
+import optax as ox
+import pytest
+
 from jax_decision_making.decision_maker import (
     AbstractDecisionMaker,
     UtilityDrivenDecisionMaker,
@@ -40,12 +46,6 @@ from jax_decision_making.utils import (
     OBJECTIVE,
     build_function_evaluator,
 )
-from gpjax.typing import KeyArray
-import jax.numpy as jnp
-import jax.random as jr
-import optax as ox
-import pytest
-
 from tests.utils import QuadraticSinglePointUtilityFunctionBuilder
 
 CONSTRAINT = "CONSTRAINT"

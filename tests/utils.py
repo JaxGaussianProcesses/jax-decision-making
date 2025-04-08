@@ -18,11 +18,6 @@ from beartype.typing import (
     Optional,
 )
 from gpjax.dataset import Dataset
-from jax_decision_making.test_functions import Quadratic
-from jax_decision_making.utility_functions import (
-    AbstractSinglePointUtilityFunctionBuilder,
-    SinglePointUtilityFunction,
-)
 from gpjax.gps import (
     ConjugatePosterior,
     NonConjugatePosterior,
@@ -39,6 +34,12 @@ from gpjax.mean_functions import (
 )
 from gpjax.typing import KeyArray
 import jax.numpy as jnp
+
+from jax_decision_making.test_functions import Quadratic
+from jax_decision_making.utility_functions import (
+    AbstractSinglePointUtilityFunctionBuilder,
+    SinglePointUtilityFunction,
+)
 
 
 class QuadraticSinglePointUtilityFunctionBuilder(

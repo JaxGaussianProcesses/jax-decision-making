@@ -16,6 +16,11 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
+from gpjax.typing import KeyArray
+import jax.numpy as jnp
+import jax.random as jr
+import pytest
+
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
     Forrester,
@@ -27,10 +32,6 @@ from jax_decision_making.utility_maximizer import (
     ContinuousSinglePointUtilityMaximizer,
     _get_discrete_maximizer,
 )
-from gpjax.typing import KeyArray
-import jax.numpy as jnp
-import jax.random as jr
-import pytest
 
 
 def test_abstract_single_batch_utility_maximizer():

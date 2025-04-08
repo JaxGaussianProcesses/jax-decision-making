@@ -19,6 +19,15 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
+from gpjax.typing import (
+    Array,
+    Float,
+    KeyArray,
+)
+import jax.numpy as jnp
+import jax.random as jr
+import pytest
+
 from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
     Forrester,
@@ -29,14 +38,6 @@ from jax_decision_making.utils import (
     build_function_evaluator,
     get_best_latent_observation_val,
 )
-from gpjax.typing import (
-    Array,
-    Float,
-    KeyArray,
-)
-import jax.numpy as jnp
-import jax.random as jr
-import pytest
 
 
 def test_build_function_evaluator():

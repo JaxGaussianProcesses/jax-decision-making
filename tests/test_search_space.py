@@ -13,10 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 from beartype.roar import BeartypeCallHintParamViolation
-from jax_decision_making.search_space import (
-    AbstractSearchSpace,
-    ContinuousSearchSpace,
-)
 from jax import config
 import jax.numpy as jnp
 import jax.random as jr
@@ -26,6 +22,11 @@ from jaxtyping import (
     TypeCheckError,
 )
 import pytest
+
+from jax_decision_making.search_space import (
+    AbstractSearchSpace,
+    ContinuousSearchSpace,
+)
 
 config.update("jax_enable_x64", True)
 

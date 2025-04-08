@@ -16,11 +16,12 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-from jax_decision_making.test_functions import PoissonTestFunction
 from gpjax.typing import KeyArray
 import jax.numpy as jnp
 import jax.random as jr
 import pytest
+
+from jax_decision_making.test_functions import PoissonTestFunction
 
 
 @pytest.mark.parametrize("test_function", [PoissonTestFunction()])

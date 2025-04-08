@@ -16,13 +16,14 @@ from dataclasses import dataclass
 
 from beartype.typing import Mapping
 from gpjax.dataset import Dataset
+from gpjax.gps import ConjugatePosterior
+from gpjax.typing import KeyArray
+
 from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
     SinglePointUtilityFunction,
 )
 from jax_decision_making.utils import OBJECTIVE
-from gpjax.gps import ConjugatePosterior
-from gpjax.typing import KeyArray
 
 
 @dataclass

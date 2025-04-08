@@ -16,7 +16,6 @@ from abc import abstractmethod
 from dataclasses import dataclass
 
 from gpjax.dataset import Dataset
-from jax_decision_making.search_space import ContinuousSearchSpace
 from gpjax.typing import (
     Array,
     Float,
@@ -25,6 +24,8 @@ from gpjax.typing import (
 )
 import jax.numpy as jnp
 import jax.random as jr
+
+from jax_decision_making.search_space import ContinuousSearchSpace
 
 
 @dataclass

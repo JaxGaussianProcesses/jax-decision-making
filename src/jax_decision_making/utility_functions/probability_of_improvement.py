@@ -16,6 +16,14 @@ from dataclasses import dataclass
 
 from beartype.typing import Mapping
 from gpjax.dataset import Dataset
+from gpjax.gps import ConjugatePosterior
+from gpjax.typing import (
+    Array,
+    KeyArray,
+)
+from jaxtyping import Num
+import tensorflow_probability.substrates.jax as tfp
+
 from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
     SinglePointUtilityFunction,
@@ -24,13 +32,6 @@ from jax_decision_making.utils import (
     OBJECTIVE,
     get_best_latent_observation_val,
 )
-from gpjax.gps import ConjugatePosterior
-from gpjax.typing import (
-    Array,
-    KeyArray,
-)
-from jaxtyping import Num
-import tensorflow_probability.substrates.jax as tfp
 
 
 @dataclass

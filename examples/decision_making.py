@@ -15,12 +15,13 @@
 # ---
 
 # %% [markdown]
-# # Introduction to Decision Making with GPJax
+# # Introduction to Decision Making with jax-decision-making
 #
-# In this notebook we provide an introduction to the decision making module of GPJax,
-# which can be used to solve sequential decision making problems. Common examples of
-# such problems include Bayesian optimisation (BO) and experimental design. For an
-# in-depth introduction to Bayesian optimisation itself, be sure to checkout out our
+# In this notebook we provide an introduction to the decision making module of
+# jax_decision_making, which can be used to solve sequential decision making problems.
+# Common examples of such problems include Bayesian optimisation (BO) and experimental design.
+#
+# For an in-depth introduction to Bayesian optimisation itself, be sure to checkout out our
 # [Introduction to BO
 # Notebook](https://docs.jaxgaussianprocesses.com/_examples/bayesian_optimisation/).
 #

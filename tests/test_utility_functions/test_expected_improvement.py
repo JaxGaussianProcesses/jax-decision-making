@@ -16,6 +16,12 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
+from gpjax.typing import KeyArray
+import jax.numpy as jnp
+import jax.random as jr
+import pytest
+import tensorflow_probability.substrates.jax as tfp
+
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
     Forrester,
@@ -28,12 +34,6 @@ from jax_decision_making.utils import (
     OBJECTIVE,
     get_best_latent_observation_val,
 )
-from gpjax.typing import KeyArray
-import jax.numpy as jnp
-import jax.random as jr
-import pytest
-import tensorflow_probability.substrates.jax as tfp
-
 from tests.utils import generate_dummy_conjugate_posterior
 
 

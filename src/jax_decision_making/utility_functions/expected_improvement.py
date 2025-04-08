@@ -17,14 +17,6 @@ from functools import partial
 
 from beartype.typing import Mapping
 from gpjax.dataset import Dataset
-from jax_decision_making.utility_functions.base import (
-    AbstractSinglePointUtilityFunctionBuilder,
-    SinglePointUtilityFunction,
-)
-from jax_decision_making.utils import (
-    OBJECTIVE,
-    get_best_latent_observation_val,
-)
 from gpjax.gps import ConjugatePosterior
 from gpjax.typing import (
     Array,
@@ -33,6 +25,15 @@ from gpjax.typing import (
 )
 import jax.numpy as jnp
 import tensorflow_probability.substrates.jax as tfp
+
+from jax_decision_making.utility_functions.base import (
+    AbstractSinglePointUtilityFunctionBuilder,
+    SinglePointUtilityFunction,
+)
+from jax_decision_making.utils import (
+    OBJECTIVE,
+    get_best_latent_observation_val,
+)
 
 
 @dataclass

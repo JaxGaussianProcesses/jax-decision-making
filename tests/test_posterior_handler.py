@@ -20,11 +20,6 @@ from beartype.typing import (
     Callable,
     Union,
 )
-from jax_decision_making.posterior_handler import PosteriorHandler
-from jax_decision_making.test_functions import (
-    Forrester,
-    PoissonTestFunction,
-)
 from gpjax.gps import Prior
 from gpjax.kernels import Matern52
 from gpjax.likelihoods import (
@@ -42,6 +37,12 @@ import jax.numpy as jnp
 import jax.random as jr
 import optax as ox
 import pytest
+
+from jax_decision_making.posterior_handler import PosteriorHandler
+from jax_decision_making.test_functions import (
+    Forrester,
+    PoissonTestFunction,
+)
 
 
 def gaussian_likelihood_builder(num_datapoints: int) -> Gaussian:

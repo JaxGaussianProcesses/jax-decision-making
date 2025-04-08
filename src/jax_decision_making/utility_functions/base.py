@@ -23,13 +23,14 @@ from beartype.typing import (
     Mapping,
 )
 from gpjax.dataset import Dataset
-from jax_decision_making.utils import OBJECTIVE
 from gpjax.gps import AbstractPosterior
 from gpjax.typing import (
     Array,
     Float,
     KeyArray,
 )
+
+from jax_decision_making.utils import OBJECTIVE
 
 SinglePointUtilityFunction = Callable[[Float[Array, "N D"]], Float[Array, "N 1"]]
 """

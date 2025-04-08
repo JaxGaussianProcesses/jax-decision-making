@@ -26,14 +26,6 @@ from beartype.typing import (
     Mapping,
 )
 from gpjax.dataset import Dataset
-from jax_decision_making.posterior_handler import PosteriorHandler
-from jax_decision_making.search_space import AbstractSearchSpace
-from jax_decision_making.utility_functions import (
-    AbstractUtilityFunctionBuilder,
-    ThompsonSampling,
-)
-from jax_decision_making.utility_maximizer import AbstractUtilityMaximizer
-from jax_decision_making.utils import FunctionEvaluator
 from gpjax.gps import AbstractPosterior
 from gpjax.typing import (
     Array,
@@ -42,6 +34,15 @@ from gpjax.typing import (
 )
 import jax.numpy as jnp
 import jax.random as jr
+
+from jax_decision_making.posterior_handler import PosteriorHandler
+from jax_decision_making.search_space import AbstractSearchSpace
+from jax_decision_making.utility_functions import (
+    AbstractUtilityFunctionBuilder,
+    ThompsonSampling,
+)
+from jax_decision_making.utility_maximizer import AbstractUtilityMaximizer
+from jax_decision_making.utils import FunctionEvaluator
 
 
 @dataclass

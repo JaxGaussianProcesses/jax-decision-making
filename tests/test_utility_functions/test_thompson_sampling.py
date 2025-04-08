@@ -17,6 +17,10 @@ from jax import config
 config.update("jax_enable_x64", True)
 
 from beartype.typing import Callable
+from gpjax.typing import KeyArray
+import jax.random as jr
+import pytest
+
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
     Forrester,
@@ -24,10 +28,6 @@ from jax_decision_making.test_functions.continuous_functions import (
 )
 from jax_decision_making.utility_functions.thompson_sampling import ThompsonSampling
 from jax_decision_making.utils import OBJECTIVE
-from gpjax.typing import KeyArray
-import jax.random as jr
-import pytest
-
 from tests.utils import generate_dummy_conjugate_posterior
 
 

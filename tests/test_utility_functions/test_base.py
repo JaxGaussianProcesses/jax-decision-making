@@ -13,9 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 
-from jax_decision_making.utility_functions.base import AbstractUtilityFunctionBuilder
 from jax import config
 import pytest
+
+from jax_decision_making.utility_functions.base import AbstractUtilityFunctionBuilder
 
 config.update("jax_enable_x64", True)
 

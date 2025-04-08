@@ -18,11 +18,6 @@ from abc import (
 )
 from dataclasses import dataclass
 
-from jax_decision_making.search_space import (
-    AbstractSearchSpace,
-    ContinuousSearchSpace,
-)
-from jax_decision_making.utility_functions import SinglePointUtilityFunction
 from gpjax.typing import (
     Array,
     Float,
@@ -32,6 +27,12 @@ from gpjax.typing import (
 import jax.numpy as jnp
 import jax.random as jr
 from jaxopt import ScipyBoundedMinimize
+
+from jax_decision_making.search_space import (
+    AbstractSearchSpace,
+    ContinuousSearchSpace,
+)
+from jax_decision_making.utility_functions import SinglePointUtilityFunction
 
 
 def _get_discrete_maximizer(
