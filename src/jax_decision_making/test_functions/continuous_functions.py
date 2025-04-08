@@ -15,6 +15,10 @@
 from abc import abstractmethod
 from dataclasses import dataclass
 
+from gpjax.dataset import Dataset
+from gpjax.decision_making.search_space import ContinuousSearchSpace
+from gpjax.gps import AbstractMeanFunction
+from gpjax.typing import KeyArray
 import jax.numpy as jnp
 from jaxtyping import (
     Array,
@@ -22,11 +26,6 @@ from jaxtyping import (
     Num,
 )
 import tensorflow_probability.substrates.jax as tfp
-
-from gpjax.dataset import Dataset
-from gpjax.decision_making.search_space import ContinuousSearchSpace
-from gpjax.gps import AbstractMeanFunction
-from gpjax.typing import KeyArray
 
 
 class AbstractContinuousTestFunction(AbstractMeanFunction):

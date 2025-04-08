@@ -12,17 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-from jax import config
-
 from gpjax.gps import Prior
 from gpjax.kernels.stationary.rbf import RBF
 from gpjax.likelihoods import Gaussian
+from jax import config
 
 config.update("jax_enable_x64", True)
-
-import jax.numpy as jnp
-import jax.random as jr
-import pytest
 
 from gpjax.decision_making.test_functions import (
     AbstractContinuousTestFunction,
@@ -39,6 +34,9 @@ from gpjax.typing import (
     Float,
     KeyArray,
 )
+import jax.numpy as jnp
+import jax.random as jr
+import pytest
 
 
 def test_build_function_evaluator():

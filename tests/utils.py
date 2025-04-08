@@ -17,8 +17,6 @@ from beartype.typing import (
     Mapping,
     Optional,
 )
-import jax.numpy as jnp
-
 from gpjax.dataset import Dataset
 from gpjax.decision_making.test_functions import Quadratic
 from gpjax.decision_making.utility_functions import (
@@ -40,6 +38,7 @@ from gpjax.mean_functions import (
     Zero,
 )
 from gpjax.typing import KeyArray
+import jax.numpy as jnp
 
 
 class QuadraticSinglePointUtilityFunctionBuilder(

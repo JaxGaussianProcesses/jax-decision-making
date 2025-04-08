@@ -16,11 +16,6 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-import jax.numpy as jnp
-import jax.random as jr
-import pytest
-import tensorflow_probability.substrates.jax as tfp
-
 from gpjax.decision_making.test_functions import (
     AbstractContinuousTestFunction,
     Forrester,
@@ -28,6 +23,10 @@ from gpjax.decision_making.test_functions import (
     Quadratic,
 )
 from gpjax.typing import KeyArray
+import jax.numpy as jnp
+import jax.random as jr
+import pytest
+import tensorflow_probability.substrates.jax as tfp
 
 
 def test_abstract_continuous_test_function():

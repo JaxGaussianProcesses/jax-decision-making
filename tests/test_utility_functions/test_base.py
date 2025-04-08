@@ -13,10 +13,9 @@
 # limitations under the License.
 # ==============================================================================
 
+from gpjax.decision_making.utility_functions.base import AbstractUtilityFunctionBuilder
 from jax import config
 import pytest
-
-from gpjax.decision_making.utility_functions.base import AbstractUtilityFunctionBuilder
 
 config.update("jax_enable_x64", True)
 

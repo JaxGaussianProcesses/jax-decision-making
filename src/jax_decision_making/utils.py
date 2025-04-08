@@ -17,14 +17,13 @@ from beartype.typing import (
     Dict,
     Final,
 )
-import jax.numpy as jnp
-
 from gpjax.dataset import Dataset
 from gpjax.gps import AbstractPosterior
 from gpjax.typing import (
     Array,
     Float,
 )
+import jax.numpy as jnp
 
 OBJECTIVE: Final[str] = "OBJECTIVE"
 """

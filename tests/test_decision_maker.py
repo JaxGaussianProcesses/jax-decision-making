@@ -16,11 +16,6 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-import jax.numpy as jnp
-import jax.random as jr
-import optax as ox
-import pytest
-
 import gpjax as gpx
 from gpjax.dataset import Dataset
 from gpjax.decision_making.decision_maker import (
@@ -46,6 +41,11 @@ from gpjax.decision_making.utils import (
     build_function_evaluator,
 )
 from gpjax.typing import KeyArray
+import jax.numpy as jnp
+import jax.random as jr
+import optax as ox
+import pytest
+
 from tests.test_decision_making.utils import QuadraticSinglePointUtilityFunctionBuilder
 
 CONSTRAINT = "CONSTRAINT"

@@ -16,9 +16,6 @@ from dataclasses import dataclass
 from functools import partial
 
 from beartype.typing import Mapping
-import jax.numpy as jnp
-import tensorflow_probability.substrates.jax as tfp
-
 from gpjax.dataset import Dataset
 from gpjax.decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
@@ -34,6 +31,8 @@ from gpjax.typing import (
     Float,
     KeyArray,
 )
+import jax.numpy as jnp
+import tensorflow_probability.substrates.jax as tfp
 
 
 @dataclass

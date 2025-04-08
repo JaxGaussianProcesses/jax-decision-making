@@ -18,8 +18,6 @@ from beartype.typing import (
     Callable,
     Optional,
 )
-import optax as ox
-
 import gpjax as gpx
 from gpjax.dataset import Dataset
 from gpjax.gps import (
@@ -29,6 +27,7 @@ from gpjax.gps import (
 )
 from gpjax.objectives import Objective
 from gpjax.typing import KeyArray
+import optax as ox
 
 LikelihoodBuilder = Callable[[int], AbstractLikelihood]
 """Type alias for likelihood builders, which take the number of datapoints as input and

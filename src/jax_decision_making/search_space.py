@@ -18,13 +18,12 @@ from abc import (
 )
 from dataclasses import dataclass
 
-from jaxtyping import Float
-import tensorflow_probability.substrates.jax as tfp
-
 from gpjax.typing import (
     Array,
     KeyArray,
 )
+from jaxtyping import Float
+import tensorflow_probability.substrates.jax as tfp
 
 
 @dataclass

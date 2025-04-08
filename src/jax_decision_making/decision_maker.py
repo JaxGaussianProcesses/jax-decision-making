@@ -25,9 +25,6 @@ from beartype.typing import (
     List,
     Mapping,
 )
-import jax.numpy as jnp
-import jax.random as jr
-
 from gpjax.dataset import Dataset
 from gpjax.decision_making.posterior_handler import PosteriorHandler
 from gpjax.decision_making.search_space import AbstractSearchSpace
@@ -43,6 +40,8 @@ from gpjax.typing import (
     Float,
     KeyArray,
 )
+import jax.numpy as jnp
+import jax.random as jr
 
 
 @dataclass

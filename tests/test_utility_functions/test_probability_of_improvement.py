@@ -16,15 +16,15 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
-import jax
-import jax.numpy as jnp
-import jax.random as jr
-
 from gpjax.decision_making.test_functions.continuous_functions import Forrester
 from gpjax.decision_making.utility_functions.probability_of_improvement import (
     ProbabilityOfImprovement,
 )
 from gpjax.decision_making.utils import OBJECTIVE
+import jax
+import jax.numpy as jnp
+import jax.random as jr
+
 from tests.test_decision_making.utils import generate_dummy_conjugate_posterior
 
 

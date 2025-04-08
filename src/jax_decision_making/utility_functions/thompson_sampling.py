@@ -15,7 +15,6 @@
 from dataclasses import dataclass
 
 from beartype.typing import Mapping
-
 from gpjax.dataset import Dataset
 from gpjax.decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,

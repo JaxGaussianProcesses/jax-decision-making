@@ -20,11 +20,6 @@ from beartype.typing import (
     Callable,
     Union,
 )
-import jax.numpy as jnp
-import jax.random as jr
-import optax as ox
-import pytest
-
 from gpjax.decision_making.posterior_handler import PosteriorHandler
 from gpjax.decision_making.test_functions import (
     Forrester,
@@ -43,6 +38,10 @@ from gpjax.objectives import (
     conjugate_mll,
     non_conjugate_mll,
 )
+import jax.numpy as jnp
+import jax.random as jr
+import optax as ox
+import pytest
 
 
 def gaussian_likelihood_builder(num_datapoints: int) -> Gaussian:

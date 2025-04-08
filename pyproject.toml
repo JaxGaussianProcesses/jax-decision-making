@@ -62,23 +62,23 @@ dependencies = [
 ]
 
 [tool.hatch.envs.dev.scripts]
-black-format = ["black ./jax_decision_making ./tests", "jupytext --pipe black examples/*.py"]
-black-check = "black --check --diff ./jax_decision_making ./tests"
+black-format = ["black ./src/jax_decision_making ./tests", "jupytext --pipe black examples/*.py"]
+black-check = "black --check --diff ./src/jax_decision_making ./tests"
 imports-format = [
-  "isort ./jax_decision_making ./tests",
+  "isort ./src/jax_decision_making ./tests",
   "isort examples/*.py --treat-comment-as-code '# %%' --float-to-top",
 ]
 imports-check = [
-  "isort ./jax_decision_making ./tests -c",
+  "isort ./src/jax_decision_making ./tests -c",
   'isort examples/*.py -c --treat-comment-as-code "# %%" --float-to-top',
 ]
-lint-format = ['ruff format ./jax_decision_making ./tests ./examples']
-lint-check = ['ruff check --fix ./jax_decision_making ./tests ./examples']
+lint-format = ['ruff format ./src/jax_decision_making ./tests ./examples']
+lint-check = ['ruff check --fix ./src/jax_decision_making ./tests ./examples']
 format = ["black-format", "imports-format", "lint-format"]
 check = ["black-check", "imports-check", "lint-check"]
 test = "pytest . -v -n auto"
-coverage = "pytest . -v --cov=./jax_decision_making --cov-report=xml:./coverage.xml"
-docstrings = "xdoctest ./jax_decision_making"
+coverage = "pytest . -v --cov=./src/jax_decision_making --cov-report=xml:./coverage.xml"
+docstrings = "xdoctest ./src/jax_decision_making"
 all-tests = ['check', 'docstrings', 'test']
 
 

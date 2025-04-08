@@ -18,10 +18,6 @@ from abc import (
 )
 from dataclasses import dataclass
 
-import jax.numpy as jnp
-import jax.random as jr
-from jaxopt import ScipyBoundedMinimize
-
 from gpjax.decision_making.search_space import (
     AbstractSearchSpace,
     ContinuousSearchSpace,
@@ -33,6 +29,9 @@ from gpjax.typing import (
     KeyArray,
     ScalarFloat,
 )
+import jax.numpy as jnp
+import jax.random as jr
+from jaxopt import ScipyBoundedMinimize
 
 
 def _get_discrete_maximizer(
