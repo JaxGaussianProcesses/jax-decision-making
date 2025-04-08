@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-from gpjax.decision_making.utility_functions.base import (
+from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
     AbstractUtilityFunctionBuilder,
     SinglePointUtilityFunction,
     UtilityFunction,
 )
-from gpjax.decision_making.utility_functions.expected_improvement import (
+from jax_decision_making.utility_functions.expected_improvement import (
     ExpectedImprovement,
 )
-from gpjax.decision_making.utility_functions.probability_of_improvement import (
+from jax_decision_making.utility_functions.probability_of_improvement import (
     ProbabilityOfImprovement,
 )
-from gpjax.decision_making.utility_functions.thompson_sampling import ThompsonSampling
+from jax_decision_making.utility_functions.thompson_sampling import ThompsonSampling
 
 __all__ = [
     "UtilityFunction",

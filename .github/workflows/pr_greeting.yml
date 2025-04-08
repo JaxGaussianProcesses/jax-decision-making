@@ -15,11 +15,11 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pr-message: >+
-            Thank you for opening your first PR into GPJax!
+            Thank you for opening your first PR into jax_decision_making!
 
 
             If you have not heard from us in a while, please feel free to ping
-            `@gpjax/developers` or anyone who has commented on the PR.
+            `@jax_decision_making/developers` or anyone who has commented on the PR.
             Most of our reviewers are volunteers and sometimes things fall
             through the cracks.
 
@@ -36,4 +36,4 @@ jobs:
 
             We strive to be a welcoming and open project. Please follow our
             [Code of
-            Conduct](https://github.com/JaxGaussianProcesses/GPJax/blob/main/.github/CODE_OF_CONDUCT.md).
+            Conduct](https://github.com/JaxGaussianProcesses/jax_decision_making/blob/main/.github/CODE_OF_CONDUCT.md).

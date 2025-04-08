@@ -18,11 +18,11 @@ from abc import (
 )
 from dataclasses import dataclass
 
-from gpjax.decision_making.search_space import (
+from jax_decision_making.search_space import (
     AbstractSearchSpace,
     ContinuousSearchSpace,
 )
-from gpjax.decision_making.utility_functions import SinglePointUtilityFunction
+from jax_decision_making.utility_functions import SinglePointUtilityFunction
 from gpjax.typing import (
     Array,
     Float,

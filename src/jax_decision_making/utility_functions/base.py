@@ -23,7 +23,7 @@ from beartype.typing import (
     Mapping,
 )
 from gpjax.dataset import Dataset
-from gpjax.decision_making.utils import OBJECTIVE
+from jax_decision_making.utils import OBJECTIVE
 from gpjax.gps import AbstractPosterior
 from gpjax.typing import (
     Array,

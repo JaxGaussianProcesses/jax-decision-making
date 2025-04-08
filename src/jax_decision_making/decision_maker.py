@@ -26,14 +26,14 @@ from beartype.typing import (
     Mapping,
 )
 from gpjax.dataset import Dataset
-from gpjax.decision_making.posterior_handler import PosteriorHandler
-from gpjax.decision_making.search_space import AbstractSearchSpace
-from gpjax.decision_making.utility_functions import (
+from jax_decision_making.posterior_handler import PosteriorHandler
+from jax_decision_making.search_space import AbstractSearchSpace
+from jax_decision_making.utility_functions import (
     AbstractUtilityFunctionBuilder,
     ThompsonSampling,
 )
-from gpjax.decision_making.utility_maximizer import AbstractUtilityMaximizer
-from gpjax.decision_making.utils import FunctionEvaluator
+from jax_decision_making.utility_maximizer import AbstractUtilityMaximizer
+from jax_decision_making.utils import FunctionEvaluator
 from gpjax.gps import AbstractPosterior
 from gpjax.typing import (
     Array,

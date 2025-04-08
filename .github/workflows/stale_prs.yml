@@ -19,24 +19,24 @@ jobs:
           remove-stale-when-updated: true
           # Days before issue/PR is marked stale
           days-before-stale: 70
-          # Days before an issue/PR is closed after marking 
+          # Days before an issue/PR is closed after marking
           days-before-close: 7
           stale-issue-message: >
             There has been no recent activity on this issue. To keep our issues log
             clean, we remove old and inactive issues.
 
-            Please update to the latest version of GPJax and
+            Please update to the latest version of jax_decision_making and
             check if that resolves the issue. Let us know if that works for you
-            by leaving a comment. 
+            by leaving a comment.
 
             This issue is now marked as stale and will be closed if no
-            further activity occurs. If you believe that this is incorrect, 
+            further activity occurs. If you believe that this is incorrect,
             please comment. Thank you!
           close-issue-message: >
             There has been no activity on this PR for some time. Therefore, we will
             be automatically closing the PR if no new activity occurs within the next
-            seven days. 
-            
+            seven days.
+
             Thank you for your contributions.
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           # Always start with the oldest issues

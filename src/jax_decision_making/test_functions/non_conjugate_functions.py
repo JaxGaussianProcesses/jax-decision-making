@@ -16,7 +16,7 @@ from abc import abstractmethod
 from dataclasses import dataclass
 
 from gpjax.dataset import Dataset
-from gpjax.decision_making.search_space import ContinuousSearchSpace
+from jax_decision_making.search_space import ContinuousSearchSpace
 from gpjax.typing import (
     Array,
     Float,

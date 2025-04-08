@@ -12,34 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-from gpjax.decision_making.decision_maker import (
+from jax_decision_making.decision_maker import (
     AbstractDecisionMaker,
     UtilityDrivenDecisionMaker,
 )
-from gpjax.decision_making.posterior_handler import PosteriorHandler
-from gpjax.decision_making.search_space import (
+from jax_decision_making.posterior_handler import PosteriorHandler
+from jax_decision_making.search_space import (
     AbstractSearchSpace,
     ContinuousSearchSpace,
 )
-from gpjax.decision_making.test_functions import (
+from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
     Forrester,
     LogarithmicGoldsteinPrice,
     Quadratic,
 )
-from gpjax.decision_making.utility_functions import (
+from jax_decision_making.utility_functions import (
     AbstractSinglePointUtilityFunctionBuilder,
     AbstractUtilityFunctionBuilder,
     SinglePointUtilityFunction,
     ThompsonSampling,
     UtilityFunction,
 )
-from gpjax.decision_making.utility_maximizer import (
+from jax_decision_making.utility_maximizer import (
     AbstractSinglePointUtilityMaximizer,
     AbstractUtilityMaximizer,
     ContinuousSinglePointUtilityMaximizer,
 )
-from gpjax.decision_making.utils import build_function_evaluator
+from jax_decision_making.utils import build_function_evaluator
 
 __all__ = [
     "AbstractUtilityFunctionBuilder",
