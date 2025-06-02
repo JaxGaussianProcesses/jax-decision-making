@@ -23,7 +23,6 @@ config.update("jax_enable_x64", True)
 from beartype.typing import Type
 from gpjax.typing import KeyArray
 import jax.random as jr
-from jaxtyping import TypeCheckError
 import pytest
 
 from jax_decision_making.test_functions.continuous_functions import (
