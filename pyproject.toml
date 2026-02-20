@@ -2,9 +2,6 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.setuptools]
-license-files = [ "LICENSE.txt" ]
-
 [project]
 name = "jax-decision-making"
 dynamic = ["version"]
@@ -39,12 +36,8 @@ dependencies = [
   "numpy<2.0.0",
 ]
 
-[tool.hatch.envs.default]
-installer = "uv"
-python = "3.10"
-
-[tool.hatch.envs.dev]
-dependencies = [
+[dependency-groups]
+dev = [
   "ruff>=0.6",
   "pre-commit>=3.2.2",
   "interrogate>=1.5.0",
@@ -61,27 +54,6 @@ dependencies = [
   "black",
   "jupytext",
 ]
-
-[tool.hatch.envs.dev.scripts]
-black-format = ["black ./src/jax_decision_making ./tests", "jupytext --pipe black examples/*.py"]
-black-check = "black --check --diff ./src/jax_decision_making ./tests"
-imports-format = [
-  "isort ./src/jax_decision_making ./tests",
-  "isort examples/*.py --treat-comment-as-code '# %%' --float-to-top",
-]
-imports-check = [
-  "isort ./src/jax_decision_making ./tests -c",
-  'isort examples/*.py -c --treat-comment-as-code "# %%" --float-to-top',
-]
-lint-format = ['ruff format ./src/jax_decision_making ./tests ./examples']
-lint-check = ['ruff check --fix ./src/jax_decision_making ./tests ./examples']
-format = ["black-format", "imports-format", "lint-format"]
-check = ["black-check", "imports-check", "lint-check"]
-test = "pytest . -v -n auto"
-coverage = "pytest . -v --cov=./src/jax_decision_making --cov-report=xml:./coverage.xml"
-docstrings = "xdoctest ./src/jax_decision_making"
-all-tests = ['check', 'docstrings', 'test']
-
 
 [project.urls]
 Documentation = "https://github.com/U.N. Owen/jax-decision-making#readme"
