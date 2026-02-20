@@ -150,7 +150,6 @@ scratch_nbs/
 package.json
 package-lock.json
 node_modules/
-uv.lock
 
 docs/api
 docs/_examples
