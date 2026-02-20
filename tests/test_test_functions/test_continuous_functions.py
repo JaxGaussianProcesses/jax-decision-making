@@ -20,7 +20,7 @@ from gpjax.typing import KeyArray
 import jax.numpy as jnp
 import jax.random as jr
 import pytest
-import tensorflow_probability.substrates.jax as tfp
+import numpyro.distributions as dist
 
 from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
@@ -120,11 +120,11 @@ def test_noisy_dataset(
 ):
     num_points = 100
     dataset = test_function.generate_dataset(num_points, jr.key(42), obs_stddev)
-    noise = tfp.distributions.Normal(
+    noise = dist.Normal(
         jnp.zeros(num_points), obs_stddev * jnp.ones(num_points)
     )
     expected_y = test_function(dataset.X) + jnp.transpose(
-        noise.sample(sample_shape=[1], seed=jr.key(42))
+        noise.sample(jr.key(42), sample_shape=(1,))
     )
     assert jnp.all(dataset.y == expected_y)
 

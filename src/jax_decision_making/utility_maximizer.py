@@ -18,15 +18,17 @@ from abc import (
 )
 from dataclasses import dataclass
 
+import jax
+import jax.numpy as jnp
+import jax.random as jr
+import numpy as onp
 from gpjax.typing import (
     Array,
     Float,
     KeyArray,
     ScalarFloat,
 )
-import jax.numpy as jnp
-import jax.random as jr
-from jaxopt import ScipyBoundedMinimize
+from scipy.optimize import minimize
 
 from jax_decision_making.search_space import (
     AbstractSearchSpace,
@@ -125,23 +127,34 @@ class ContinuousSinglePointUtilityMaximizer(AbstractSinglePointUtilityMaximizer)
 
             def _scalar_utility_function(x: Float[Array, "1 D"]) -> ScalarFloat:
                 """
-                The Jaxopt minimizer requires a function which returns a scalar. It calls the
-                utility function with one point at a time, so the utility function
-                returns an array of shape [1, 1], so  we index to return a scalar. Note that
-                we also return the negative of the utility function - this is because
-                utility functions should be *maximimized* but the Jaxopt minimizer
-                minimizes functions.
+                Returns the negative of the utility function as a scalar, since
+                utility functions should be *maximized* but scipy minimizes.
                 """
                 return -utility_function(x)[0][0]
 
-            lbfgsb = ScipyBoundedMinimize(
-                fun=_scalar_utility_function, method="l-bfgs-b"
+            val_and_grad_fn = jax.value_and_grad(_scalar_utility_function)
+
+            def _objective_for_scipy(x_flat):
+                x = jnp.array(x_flat).reshape(1, -1)
+                val, grad = val_and_grad_fn(x)  # noqa: B023
+                return float(val), onp.array(grad.flatten(), dtype=onp.float64)
+
+            bounds = list(
+                zip(
+                    onp.array(search_space.lower_bounds),
+                    onp.array(search_space.upper_bounds),
+                    strict=True,
+                )
             )
-            bounds = (search_space.lower_bounds, search_space.upper_bounds)
-            optimized_point = lbfgsb.run(
-                best_initial_sample_point, bounds=bounds
-            ).params
-            optimized_utility_function_value = _scalar_utility_function(optimized_point)
+            result = minimize(
+                _objective_for_scipy,
+                x0=onp.array(best_initial_sample_point.flatten(), dtype=onp.float64),
+                method="L-BFGS-B",
+                jac=True,
+                bounds=bounds,
+            )
+            optimized_point = jnp.array(result.x).reshape(1, -1)
+            optimized_utility_function_value = utility_function(optimized_point)[0][0]
             if (max_observed_utility_function_value is None) or (
                 optimized_utility_function_value > max_observed_utility_function_value
             ):

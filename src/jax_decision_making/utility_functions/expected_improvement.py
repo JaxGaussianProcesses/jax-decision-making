@@ -24,7 +24,7 @@ from gpjax.typing import (
     KeyArray,
 )
 import jax.numpy as jnp
-import tensorflow_probability.substrates.jax as tfp
+import numpyro.distributions as dist
 
 from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
@@ -104,9 +104,9 @@ def _expected_improvement(
     x: Float[Array, "N D"],
 ) -> Float[Array, "N 1"]:
     latent_dist = objective_posterior(x, objective_dataset)
-    mean = latent_dist.mean()
-    var = latent_dist.variance()
-    normal = tfp.distributions.Normal(mean, jnp.sqrt(var))
+    mean = latent_dist.mean
+    var = latent_dist.variance
+    normal = dist.Normal(mean, jnp.sqrt(var))
     return jnp.expand_dims(
-        ((eta - mean) * normal.cdf(eta) + var * normal.prob(eta)), -1
+        ((eta - mean) * normal.cdf(eta) + var * jnp.exp(normal.log_prob(eta))), -1
     )

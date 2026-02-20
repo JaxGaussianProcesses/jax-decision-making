@@ -22,7 +22,7 @@ from gpjax.typing import (
     KeyArray,
 )
 from jaxtyping import Num
-import tensorflow_probability.substrates.jax as tfp
+import numpyro.distributions as dist
 
 from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
@@ -115,8 +115,8 @@ class ProbabilityOfImprovement(AbstractSinglePointUtilityFunctionBuilder):
             )
             predictive_dist = objective_posterior.predict(x_test, objective_dataset)
 
-            normal_dist = tfp.distributions.Normal(
-                loc=predictive_dist.mean(),
+            normal_dist = dist.Normal(
+                loc=predictive_dist.mean,
                 scale=predictive_dist.stddev(),
             )
 

@@ -24,7 +24,7 @@ from jaxtyping import (
     Float,
     Num,
 )
-import tensorflow_probability.substrates.jax as tfp
+import numpyro.distributions as dist
 
 from jax_decision_making.search_space import ContinuousSearchSpace
 
@@ -59,11 +59,11 @@ class AbstractContinuousTestFunction(AbstractMeanFunction):
             Dataset: Dataset of points sampled from the test function.
         """
         X = self.search_space.sample(num_points=num_points, key=key)
-        gaussian_noise = tfp.distributions.Normal(
+        gaussian_noise = dist.Normal(
             jnp.zeros(num_points), obs_stddev * jnp.ones(num_points)
         )
         y = self.evaluate(X) + jnp.transpose(
-            gaussian_noise.sample(sample_shape=[1], seed=key)
+            gaussian_noise.sample(key, sample_shape=(1,))
         )
         return Dataset(X=X, y=y)
 

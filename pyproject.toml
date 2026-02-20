@@ -7,12 +7,12 @@ name = "jax-decision-making"
 dynamic = ["version"]
 description = 'Decision making with Gaussian processes in JAX.'
 readme = "README.md"
-requires-python = ">=3.10, <3.13"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 keywords = ["gaussian-processes", "jax", "decision-making"]
 authors = [
   { name = "Thomas Pinder", email = "tompinder@live.co.uk" },
-  { name = "Thomas Christie", email = "thomashamish@hotmail.com"}
+  { name = "Thomas Christie", email = "thomashamish@hotmail.com" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -24,16 +24,16 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "gpjax==0.9.4",
-  "beartype",
-  "jax<0.4.28",
-  "jaxlib<0.4.28",
+  "gpjax>=0.11.0",
+  "beartype>0.16.1",
+  "jax>=0.5.0",
+  "jaxlib>=0.5.0",
   "optax>0.2.1",
   "jaxtyping>0.2.10",
-  "tensorflow-probability>=0.24.0",
-  "jaxopt==0.8.2",
-  "flax<0.10.0",
-  "numpy<2.0.0",
+  "flax>=0.12.2",
+  "numpy>=2.0.0",
+  "numpyro>=0.19.0",
+  "scipy>=1.13.0",
 ]
 
 [dependency-groups]
@@ -67,20 +67,17 @@ path = "src/jax_decision_making/__about__.py"
 source_pkgs = ["jax_decision_making", "tests"]
 branch = true
 parallel = true
-omit = [
-  "src/jax_decision_making/__about__.py",
-]
+omit = ["src/jax_decision_making/__about__.py"]
 
 [tool.coverage.paths]
-jax_decision_making = ["src/jax_decision_making", "*/jax-decision-making/src/jax_decision_making"]
+jax_decision_making = [
+  "src/jax_decision_making",
+  "*/jax-decision-making/src/jax_decision_making",
+]
 tests = ["tests", "*/jax-decision-making/tests"]
 
 [tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 
 [tool.black] # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 line-length = 88
@@ -158,12 +155,7 @@ skip = 'examples'
 ignore-init-method = true
 ignore-init-module = true
 fail-under = 64
-exclude = [
-  "setup.py",
-  "docs",
-  "tests",
-  "jax_decision_making/__init__.py",
-]
+exclude = ["setup.py", "docs", "tests", "jax_decision_making/__init__.py"]
 verbose = 2
 quiet = false
 color = true

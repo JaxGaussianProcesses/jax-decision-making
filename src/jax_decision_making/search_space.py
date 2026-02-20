@@ -12,18 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+import math
 from abc import (
     ABC,
     abstractmethod,
 )
 from dataclasses import dataclass
 
+import jax
+import jax.numpy as jnp
 from gpjax.typing import (
     Array,
     KeyArray,
 )
 from jaxtyping import Float
-import tensorflow_probability.substrates.jax as tfp
+from scipy.stats.qmc import Sobol
 
 
 @dataclass
@@ -75,21 +78,22 @@ class ContinuousSearchSpace(AbstractSearchSpace):
         return self.lower_bounds.shape[0]
 
     def sample(self, num_points: int, key: KeyArray) -> Float[Array, "N D"]:
-        """Sample points from the search space using a Halton sequence.
+        """Sample points from the search space using a Sobol sequence.
 
         Args:
             num_points (int): Number of points to be sampled from the search space.
             key (KeyArray): JAX PRNG key.
         Returns:
-            Float[Array, "N D"]: `num_points` points sampled using the Halton sequence
+            Float[Array, "N D"]: `num_points` points sampled using the Sobol sequence
             from the search space.
         """
         if num_points <= 0:
             raise ValueError("Number of points must be greater than 0.")
 
-        initial_sample = tfp.mcmc.sample_halton_sequence(
-            dim=self.dimensionality, num_results=num_points, seed=key
-        )
+        seed = int(jax.random.bits(key, dtype=jnp.uint32))
+        sampler = Sobol(d=self.dimensionality, scramble=True, rng=seed)
+        n_pow2 = 2 ** int(math.ceil(math.log2(max(num_points, 1))))
+        initial_sample = jnp.array(sampler.random(n_pow2))[:num_points]
         return (
             self.lower_bounds + (self.upper_bounds - self.lower_bounds) * initial_sample
         )

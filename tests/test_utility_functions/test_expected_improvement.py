@@ -20,7 +20,7 @@ from gpjax.typing import KeyArray
 import jax.numpy as jnp
 import jax.random as jr
 import pytest
-import tensorflow_probability.substrates.jax as tfp
+import numpyro.distributions as dist
 
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
@@ -56,10 +56,10 @@ def test_expected_improvement_utility_function_correct_values(
     ei = ei_fn(test_x)
     latent_dist = posterior.predict(test_x, dataset)
     pred_dist = posterior.likelihood(latent_dist)
-    pred_mean = pred_dist.mean()
-    pred_var = pred_dist.variance()
-    samples = tfp.distributions.Normal(loc=pred_mean, scale=jnp.sqrt(pred_var)).sample(
-        1000, seed=key
+    pred_mean = pred_dist.mean
+    pred_var = pred_dist.variance
+    samples = dist.Normal(loc=pred_mean, scale=jnp.sqrt(pred_var)).sample(
+        key, sample_shape=(1000,)
     )
     eta = get_best_latent_observation_val(posterior, dataset)
     mc_ei = jnp.expand_dims(jnp.mean(jnp.maximum(eta - samples, 0), 0), -1)

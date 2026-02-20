@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+import jax.numpy as jnp
 from beartype.typing import (
     Callable,
     Dict,
@@ -23,7 +24,6 @@ from gpjax.typing import (
     Array,
     Float,
 )
-import jax.numpy as jnp
 
 OBJECTIVE: Final[str] = "OBJECTIVE"
 """
@@ -60,4 +60,4 @@ def get_best_latent_observation_val(
     locations in the dataset. In the noiseless case, this corresponds to the minimum
     value in the dataset.
     """
-    return jnp.min(posterior(dataset.X, dataset).mean())
+    return jnp.min(posterior(dataset.X, dataset).mean)

@@ -19,15 +19,14 @@ from jax import config
 
 config.update("jax_enable_x64", True)
 
+import jax.numpy as jnp
+import jax.random as jr
+import pytest
 from gpjax.typing import (
     Array,
     Float,
     KeyArray,
 )
-import jax.numpy as jnp
-import jax.random as jr
-import pytest
-
 from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
     Forrester,
@@ -76,7 +75,7 @@ def test_get_best_observation(
     prior = Prior(kernel=kernel, mean_function=mean_fn)
     likelihood = Gaussian(num_datapoints=dataset.n, obs_stddev=obs_stddev)
     posterior = prior * likelihood
-    expected_best_obs = jnp.min(posterior(dataset.X, dataset).mean())
+    expected_best_obs = jnp.min(posterior(dataset.X, dataset).mean)
     actual_best_obs = get_best_latent_observation_val(
         posterior=posterior, dataset=dataset
     )

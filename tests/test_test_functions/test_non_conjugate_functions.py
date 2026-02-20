@@ -30,7 +30,7 @@ def test_correct_dtypes(test_function: PoissonTestFunction):
     dataset = test_function.generate_dataset(10, jr.key(42))
     test_x = test_function.generate_test_points(10, jr.key(42))
     assert dataset.X.dtype == jnp.float64
-    assert dataset.y.dtype == jnp.integer
+    assert jnp.issubdtype(dataset.y.dtype, jnp.integer)
     assert test_x.dtype == jnp.float64
 
 
