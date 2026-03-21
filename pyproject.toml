@@ -84,7 +84,7 @@ line-length = 88
 target-version = ["py310"]
 
 [tool.pytest.ini_options] # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
-filterwarnings = ["error", "ignore::DeprecationWarning"]
+filterwarnings = ["error", "ignore::DeprecationWarning", "ignore:The balance properties of Sobol:UserWarning"]
 testpaths = ["tests"]
 xfail_strict = true
 

@@ -132,7 +132,6 @@ def test_continous_search_space_invalid_sample_num_points(
         ),
     ],
 )
-@pytest.mark.filterwarnings("ignore:The balance properties of Sobol:UserWarning")
 @pytest.mark.parametrize("num_points", [1, 5, 50])
 def test_continuous_search_space_sample_shape(
     continuous_search_space: ContinuousSearchSpace, dimensionality: int, num_points: int
@@ -150,7 +149,6 @@ def test_continuous_search_space_sample_shape(
         ContinuousSearchSpace(jnp.array([0.0, 0.0, 0.0]), jnp.array([1.0, 1.0, 1.0])),
     ],
 )
-@pytest.mark.filterwarnings("ignore:The balance properties of Sobol:UserWarning")
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(5)])
 def test_continous_search_space_sample_same_key_same_samples(
     continuous_search_space: ContinuousSearchSpace, key: jr.key
@@ -168,7 +166,6 @@ def test_continous_search_space_sample_same_key_same_samples(
         ContinuousSearchSpace(jnp.array([0.0, 0.0, 0.0]), jnp.array([1.0, 1.0, 1.0])),
     ],
 )
-@pytest.mark.filterwarnings("ignore:The balance properties of Sobol:UserWarning")
 @pytest.mark.parametrize(
     "key_one, key_two",
     [(jr.key(42), jr.key(5)), (jr.key(1), jr.key(2))],
@@ -201,7 +198,6 @@ def test_continuous_search_space_different_keys_different_samples(
         ),
     ],
 )
-@pytest.mark.filterwarnings("ignore:The balance properties of Sobol:UserWarning")
 def test_continuous_search_space_valid_sample_ranges(
     continuous_search_space: ContinuousSearchSpace,
 ):
