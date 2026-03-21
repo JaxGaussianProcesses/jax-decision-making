@@ -29,8 +29,8 @@ from gpjax.typing import (
 )
 from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
-    Forrester,
-    LogarithmicGoldsteinPrice,
+    NegativeForrester,
+    NegativeLogarithmicGoldsteinPrice,
 )
 from jax_decision_making.utils import (
     OBJECTIVE,
@@ -59,7 +59,7 @@ def test_build_function_evaluator():
 
 @pytest.mark.parametrize(
     "test_target_function",
-    [(Forrester()), (LogarithmicGoldsteinPrice())],
+    [(NegativeForrester()), (NegativeLogarithmicGoldsteinPrice())],
 )
 @pytest.mark.parametrize("key", [jr.PRNGKey(42), jr.PRNGKey(10)])
 def test_get_best_observation(
@@ -75,7 +75,7 @@ def test_get_best_observation(
     prior = Prior(kernel=kernel, mean_function=mean_fn)
     likelihood = Gaussian(num_datapoints=dataset.n, obs_stddev=obs_stddev)
     posterior = prior * likelihood
-    expected_best_obs = jnp.min(posterior(dataset.X, dataset).mean)
+    expected_best_obs = jnp.max(posterior(dataset.X, dataset).mean)
     actual_best_obs = get_best_latent_observation_val(
         posterior=posterior, dataset=dataset
     )

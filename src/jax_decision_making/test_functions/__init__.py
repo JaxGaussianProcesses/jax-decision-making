@@ -14,9 +14,9 @@
 # ==============================================================================
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
-    Forrester,
-    LogarithmicGoldsteinPrice,
-    Quadratic,
+    NegativeForrester,
+    NegativeLogarithmicGoldsteinPrice,
+    NegativeQuadratic,
 )
 from jax_decision_making.test_functions.non_conjugate_functions import (
     PoissonTestFunction,
@@ -24,8 +24,8 @@ from jax_decision_making.test_functions.non_conjugate_functions import (
 
 __all__ = [
     "AbstractContinuousTestFunction",
-    "Forrester",
-    "LogarithmicGoldsteinPrice",
+    "NegativeForrester",
+    "NegativeLogarithmicGoldsteinPrice",
+    "NegativeQuadratic",
     "PoissonTestFunction",
-    "Quadratic",
 ]

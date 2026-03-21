@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-from dataclasses import dataclass
-
+import numpyro.distributions as dist
 from beartype.typing import Mapping
 from gpjax.dataset import Dataset
 from gpjax.gps import ConjugatePosterior
@@ -22,7 +21,6 @@ from gpjax.typing import (
     KeyArray,
 )
 from jaxtyping import Num
-import numpyro.distributions as dist
 
 from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
@@ -34,7 +32,6 @@ from jax_decision_making.utils import (
 )
 
 
-@dataclass
 class ProbabilityOfImprovement(AbstractSinglePointUtilityFunctionBuilder):
     r"""
     An acquisition function which returns the probability of improvement
@@ -42,13 +39,13 @@ class ProbabilityOfImprovement(AbstractSinglePointUtilityFunctionBuilder):
 
     More precisely, given a predictive posterior distribution of the objective
     function $`f`$, the probability of improvement at a test point $`x`$ is defined as:
-    $$`\text{PI}(x) = \text{Prob}[f(x) < f(x_{\text{best}})]`$$
-    where $`x_{\text{best}}`$ is the minimiser of the posterior mean
+    $$`\text{PI}(x) = \text{Prob}[f(x) > f(x_{\text{best}})]`$$
+    where $`x_{\text{best}}`$ is the maximiser of the posterior mean
     at previously observed values (to handle noisy observations).
 
     The probability of improvement can be easily computed using the
     cumulative distribution function of the standard normal distribution $`\Phi`$:
-    $$`\text{PI}(x) = \Phi\left(\frac{f(x_{\text{best}}) - \mu}{\sigma}\right)`$$
+    $$`\text{PI}(x) = 1 - \Phi\left(\frac{f(x_{\text{best}}) - \mu}{\sigma}\right)`$$
     where $`\mu`$ and $`\sigma`$ are the mean and standard deviation of the
     predictive distribution of the objective function at $`x`$.
 
@@ -120,6 +117,6 @@ class ProbabilityOfImprovement(AbstractSinglePointUtilityFunctionBuilder):
                 scale=predictive_dist.stddev(),
             )
 
-            return normal_dist.cdf(best_y).reshape(-1, 1)
+            return (1 - normal_dist.cdf(best_y)).reshape(-1, 1)
 
         return probability_of_improvement

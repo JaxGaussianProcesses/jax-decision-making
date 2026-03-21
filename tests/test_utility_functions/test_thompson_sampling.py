@@ -23,8 +23,8 @@ import pytest
 
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
-    Forrester,
-    LogarithmicGoldsteinPrice,
+    NegativeForrester,
+    NegativeLogarithmicGoldsteinPrice,
 )
 from jax_decision_making.utility_functions.thompson_sampling import ThompsonSampling
 from jax_decision_making.utils import OBJECTIVE
@@ -37,8 +37,8 @@ from tests.utils import generate_dummy_conjugate_posterior
 )  # Sampling with tfp causes JAX to raise a UserWarning due to some internal logic around jnp.argsort
 def test_thompson_sampling_invalid_rff_num_raises_error(num_rff_features: int):
     key = jr.key(42)
-    forrester = Forrester()
-    dataset = forrester.generate_dataset(num_points=10, key=key)
+    neg_forrester = NegativeForrester()
+    dataset = neg_forrester.generate_dataset(num_points=10, key=key)
     posterior = generate_dummy_conjugate_posterior(dataset)
     posteriors = {OBJECTIVE: posterior}
     datasets = {OBJECTIVE: dataset}
@@ -51,7 +51,7 @@ def test_thompson_sampling_invalid_rff_num_raises_error(num_rff_features: int):
 
 @pytest.mark.parametrize(
     "test_target_function",
-    [(Forrester()), (LogarithmicGoldsteinPrice())],
+    [(NegativeForrester()), (NegativeLogarithmicGoldsteinPrice())],
 )
 @pytest.mark.parametrize("num_test_points", [50, 100])
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10)])
@@ -86,7 +86,7 @@ def test_thompson_sampling_utility_function_same_key_same_function(
 
 @pytest.mark.parametrize(
     "test_target_function",
-    [(Forrester()), (LogarithmicGoldsteinPrice())],
+    [(NegativeForrester()), (NegativeLogarithmicGoldsteinPrice())],
 )
 @pytest.mark.parametrize("num_test_points", [50, 100])
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10)])

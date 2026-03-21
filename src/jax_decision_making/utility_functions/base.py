@@ -16,7 +16,6 @@ from abc import (
     ABC,
     abstractmethod,
 )
-from dataclasses import dataclass
 
 from beartype.typing import (
     Callable,
@@ -48,7 +47,6 @@ Note that `UtilityFunction`s are *maximised* in order to decide which point, or 
 """
 
 
-@dataclass
 class AbstractSinglePointUtilityFunctionBuilder(ABC):
     """
     Abstract class for building utility functions which don't support batches. As such,

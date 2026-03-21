@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-from dataclasses import dataclass
-from functools import partial
-
+import jax.numpy as jnp
+import numpyro.distributions as dist
 from beartype.typing import Mapping
 from gpjax.dataset import Dataset
 from gpjax.gps import ConjugatePosterior
@@ -23,8 +22,6 @@ from gpjax.typing import (
     Float,
     KeyArray,
 )
-import jax.numpy as jnp
-import numpyro.distributions as dist
 
 from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
@@ -36,12 +33,11 @@ from jax_decision_making.utils import (
 )
 
 
-@dataclass
 class ExpectedImprovement(AbstractSinglePointUtilityFunctionBuilder):
     """
     Expected Improvement acquisition function as introduced by [Močkus,
     1974](https://link.springer.com/chapter/10.1007/3-540-07165-2_55). The "best"
-    incumbent value is defined as the lowest posterior mean value evaluated at the the
+    incumbent value is defined as the highest posterior mean value evaluated at the
     previously observed points. This enables the acquisition function to be utilised with noisy observations.
     """
 
@@ -58,7 +54,7 @@ class ExpectedImprovement(AbstractSinglePointUtilityFunctionBuilder):
         $`f(\cdot)`$, and best incumbent value $`\eta`$, this is defined
         as:
         ```math
-        \alpha_{\text{EI}}(\mathbf{x}) = \mathbb{E}\left[\max(0, \eta - f(\mathbf{x}))\right]
+        \alpha_{\text{EI}}(\mathbf{x}) = \mathbb{E}\left[\max(0, f(\mathbf{x}) - \eta)\right]
         ```
 
         Args:
@@ -92,21 +88,18 @@ class ExpectedImprovement(AbstractSinglePointUtilityFunctionBuilder):
             raise ValueError("Objective dataset must contain at least one item")
 
         eta = get_best_latent_observation_val(objective_posterior, objective_dataset)
-        return partial(
-            _expected_improvement, objective_posterior, objective_dataset, eta
-        )
 
+        def _expected_improvement(x: Float[Array, "N D"]) -> Float[Array, "N 1"]:
+            latent_dist = objective_posterior(x, objective_dataset)
+            mean = latent_dist.mean
+            var = latent_dist.variance
+            normal = dist.Normal(mean, jnp.sqrt(var))
+            return jnp.expand_dims(
+                (
+                    (mean - eta) * (1 - normal.cdf(eta))
+                    + var * jnp.exp(normal.log_prob(eta))
+                ),
+                -1,
+            )
 
-def _expected_improvement(
-    objective_posterior: ConjugatePosterior,
-    objective_dataset: Dataset,
-    eta: Float[Array, ""],
-    x: Float[Array, "N D"],
-) -> Float[Array, "N 1"]:
-    latent_dist = objective_posterior(x, objective_dataset)
-    mean = latent_dist.mean
-    var = latent_dist.variance
-    normal = dist.Normal(mean, jnp.sqrt(var))
-    return jnp.expand_dims(
-        ((eta - mean) * normal.cdf(eta) + var * jnp.exp(normal.log_prob(eta))), -1
-    )
+        return _expected_improvement

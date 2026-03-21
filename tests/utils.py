@@ -35,7 +35,7 @@ from gpjax.mean_functions import (
 from gpjax.typing import KeyArray
 import jax.numpy as jnp
 
-from jax_decision_making.test_functions import Quadratic
+from jax_decision_making.test_functions import NegativeQuadratic
 from jax_decision_making.utility_functions import (
     AbstractSinglePointUtilityFunctionBuilder,
     SinglePointUtilityFunction,
@@ -46,10 +46,9 @@ class QuadraticSinglePointUtilityFunctionBuilder(
     AbstractSinglePointUtilityFunctionBuilder
 ):
     """
-    Dummy utility function builder for testing purposes, which returns the negative
-    of the value of a quadratic test function at the input points. This is because
-    utility functions are *maximised*, and we wish to *minimise* the quadratic test
-    function. Note that this is a `SinglePointUtilityFunctionBuilder`.
+    Dummy utility function builder for testing purposes, which returns the value of the
+    negated quadratic test function at the input points. The utility function is
+    *maximised*, and the maximum is at x = 0.5.
     """
 
     def build_utility_function(
@@ -58,10 +57,8 @@ class QuadraticSinglePointUtilityFunctionBuilder(
         datasets: Mapping[str, Dataset],
         key: KeyArray,
     ) -> SinglePointUtilityFunction:
-        test_function = Quadratic()
-        return lambda x: (
-            -1.0 * test_function.evaluate(x)
-        )  # Utility functions are *maximised*
+        test_function = NegativeQuadratic()
+        return test_function.evaluate
 
 
 def generate_dummy_conjugate_posterior(

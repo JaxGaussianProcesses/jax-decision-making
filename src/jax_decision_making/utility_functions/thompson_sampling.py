@@ -31,8 +31,8 @@ class ThompsonSampling(AbstractSinglePointUtilityFunctionBuilder):
     """
     Form a utility function by drawing an approximate sample from the posterior,
     using decoupled sampling as introduced in [Wilson et. al.
-    (2020)](https://arxiv.org/abs/2002.09309). Note that we return the *negative* of the
-    sample as the utility function, as utility functions are *maximised*.
+    (2020)](https://arxiv.org/abs/2002.09309). The sample is returned directly as the
+    utility function, which is then *maximised* to find the next query point.
 
     Note that this is a single batch utility function, as it doesn't support classical
     batching. However, Thompson sampling can be used in a batched setting by drawing a
@@ -62,8 +62,7 @@ class ThompsonSampling(AbstractSinglePointUtilityFunctionBuilder):
     ) -> SinglePointUtilityFunction:
         """
         Draw an approximate sample from the posterior of the objective model and return
-        the *negative* of this sample as a utility function, as utility functions
-        are *maximised*.
+        it as a utility function to be *maximised*.
 
         Args:
             posteriors (Mapping[str, ConjugatePosterior]): Dictionary of posteriors to
@@ -78,8 +77,8 @@ class ThompsonSampling(AbstractSinglePointUtilityFunctionBuilder):
             changed to draw different samples.
 
         Returns:
-            SinglePointUtilityFunction: An appproximate sample from the objective model
-                posterior to to be *maximised* in order to decide which point to query
+            SinglePointUtilityFunction: An approximate sample from the objective model
+                posterior to be *maximised* in order to decide which point to query
                 next.
         """
         self.check_objective_present(posteriors, datasets)
@@ -98,4 +97,4 @@ class ThompsonSampling(AbstractSinglePointUtilityFunctionBuilder):
             num_features=self.num_features,
         )
 
-        return lambda x: -1.0 * thompson_sample(x)  # Utility functions are *maximised*
+        return thompson_sample

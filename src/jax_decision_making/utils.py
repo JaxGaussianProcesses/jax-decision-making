@@ -56,8 +56,8 @@ def get_best_latent_observation_val(
 ) -> Float[Array, ""]:
     """
     Takes a posterior and dataset and returns the best (latent) function value in the
-    dataset, corresponding to the minimum of the posterior mean value evaluated at
-    locations in the dataset. In the noiseless case, this corresponds to the minimum
+    dataset, corresponding to the maximum of the posterior mean value evaluated at
+    locations in the dataset. In the noiseless case, this corresponds to the maximum
     value in the dataset.
     """
-    return jnp.min(posterior(dataset.X, dataset).mean)
+    return jnp.max(posterior(dataset.X, dataset).mean)

@@ -33,7 +33,7 @@ from jax_decision_making.search_space import (
     AbstractSearchSpace,
     ContinuousSearchSpace,
 )
-from jax_decision_making.test_functions import Quadratic
+from jax_decision_making.test_functions import NegativeQuadratic
 from jax_decision_making.utility_functions import (
     AbstractSinglePointUtilityFunctionBuilder,
     ThompsonSampling,
@@ -99,7 +99,7 @@ def utility_maximizer() -> AbstractSinglePointUtilityMaximizer:
 
 
 def get_dataset(num_points: int, key: KeyArray) -> Dataset:
-    test_function = Quadratic()
+    test_function = NegativeQuadratic()
     dataset = test_function.generate_dataset(num_points=num_points, key=key)
     return dataset
 
@@ -413,7 +413,7 @@ def test_decision_maker_run(
         batch_size=1,
     )
     initial_decision_maker_key = decision_maker.key
-    black_box_fn = Quadratic()
+    black_box_fn = NegativeQuadratic()
     black_box_function_evaluator = build_function_evaluator(
         {OBJECTIVE: black_box_fn.evaluate}
     )
@@ -458,7 +458,7 @@ def test_decision_maker_run_ts(
         batch_size=batch_size,
     )
     initial_decision_maker_key = decision_maker.key
-    black_box_fn = Quadratic()
+    black_box_fn = NegativeQuadratic()
     black_box_function_evaluator = build_function_evaluator(
         {OBJECTIVE: black_box_fn.evaluate}
     )

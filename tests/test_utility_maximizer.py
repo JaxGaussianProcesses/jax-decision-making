@@ -23,9 +23,9 @@ import pytest
 
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
-    Forrester,
-    LogarithmicGoldsteinPrice,
-    Quadratic,
+    NegativeForrester,
+    NegativeLogarithmicGoldsteinPrice,
+    NegativeQuadratic,
 )
 from jax_decision_making.utility_maximizer import (
     AbstractSinglePointUtilityMaximizer,
@@ -41,7 +41,7 @@ def test_abstract_single_batch_utility_maximizer():
 
 @pytest.mark.parametrize(
     "test_function, dimensionality",
-    [(Forrester(), 1), (LogarithmicGoldsteinPrice(), 2)],
+    [(NegativeForrester(), 1), (NegativeLogarithmicGoldsteinPrice(), 2)],
 )
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10)])
 def test_discrete_maximizer_returns_correct_point(
@@ -50,7 +50,7 @@ def test_discrete_maximizer_returns_correct_point(
     key: KeyArray,
 ):
     query_points = test_function.generate_test_points(1000, key=key)
-    utility_function = lambda x: -1.0 * test_function.evaluate(x)
+    utility_function = test_function.evaluate
     utility_vals = utility_function(query_points)
     true_max_utility_val = jnp.max(utility_vals)
     discrete_maximizer = _get_discrete_maximizer(query_points, utility_function)
@@ -81,7 +81,7 @@ def test_continuous_maximizer_raises_error_with_erroneous_num_restarts(
 
 @pytest.mark.parametrize(
     "test_function, dimensionality",
-    [(Forrester(), 1), (LogarithmicGoldsteinPrice(), 2)],
+    [(NegativeForrester(), 1), (NegativeLogarithmicGoldsteinPrice(), 2)],
 )
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10)])
 @pytest.mark.parametrize("num_restarts", [1, 3])
@@ -97,7 +97,7 @@ def test_continuous_maximizer_returns_same_point_with_same_key(
     continuous_maximizer_two = ContinuousSinglePointUtilityMaximizer(
         num_initial_samples=1000, num_restarts=num_restarts
     )
-    utility_function = lambda x: -1.0 * test_function.evaluate(x)
+    utility_function = test_function.evaluate
     maximizer_one = continuous_maximizer_one.maximize(
         utility_function=utility_function,
         search_space=test_function.search_space,
@@ -118,8 +118,8 @@ def test_continuous_maximizer_returns_same_point_with_same_key(
 @pytest.mark.parametrize(
     "test_function, dimensionality",
     [
-        (Forrester(), 1),
-        (LogarithmicGoldsteinPrice(), 2),
+        (NegativeForrester(), 1),
+        (NegativeLogarithmicGoldsteinPrice(), 2),
     ],
 )
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10)])
@@ -133,8 +133,8 @@ def test_continuous_maximizer_finds_correct_point(
     continuous_utility_maximizer = ContinuousSinglePointUtilityMaximizer(
         num_initial_samples=1000, num_restarts=num_restarts
     )
-    utility_function = lambda x: -1.0 * test_function.evaluate(x)
-    true_utility_maximizer = test_function.minimizer
+    utility_function = test_function.evaluate
+    true_utility_maximizer = test_function.maximizer
     maximizer = continuous_utility_maximizer.maximize(
         utility_function=utility_function,
         search_space=test_function.search_space,
@@ -148,13 +148,13 @@ def test_continuous_maximizer_finds_correct_point(
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10), jr.key(1)])
 @pytest.mark.parametrize("num_restarts", [1, 3])
 def test_continuous_maximizer_jaxopt_component(key: KeyArray, num_restarts: int):
-    quadratic = Quadratic()
+    quadratic = NegativeQuadratic()
     continuous_utility_maximizer = ContinuousSinglePointUtilityMaximizer(
         num_initial_samples=1,  # Force JaxOpt L-GFBS-B to do the heavy lifting
         num_restarts=num_restarts,
     )
-    utility_function = lambda x: -1.0 * quadratic.evaluate(x)
-    true_utility_maximizer = quadratic.minimizer
+    utility_function = quadratic.evaluate
+    true_utility_maximizer = quadratic.maximizer
     maximizer = continuous_utility_maximizer.maximize(
         utility_function=utility_function,
         search_space=quadratic.search_space,

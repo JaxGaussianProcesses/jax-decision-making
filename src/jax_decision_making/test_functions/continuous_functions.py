@@ -35,13 +35,13 @@ class AbstractContinuousTestFunction(AbstractMeanFunction):
 
     Attributes:
         search_space (ContinuousSearchSpace): Search space for the function.
-        minimizer (Float[Array, '1 D']): Minimizer of the function (to 5 decimal places)
-        minimum (Float[Array, '1 1']): Minimum of the function (to 5 decimal places).
+        maximizer (Float[Array, '1 D']): Maximizer of the function (to 5 decimal places)
+        maximum (Float[Array, '1 1']): Maximum of the function (to 5 decimal places).
     """
 
     search_space: ContinuousSearchSpace
-    minimizer: Float[Array, "1 D"]
-    minimum: Float[Array, "1 1"]
+    maximizer: Float[Array, "1 D"]
+    maximum: Float[Array, "1 1"]
 
     def generate_dataset(
         self, num_points: int, key: KeyArray, obs_stddev: float = 0.0
@@ -100,40 +100,43 @@ class AbstractContinuousTestFunction(AbstractMeanFunction):
 
 
 @dataclass
-class Forrester(AbstractContinuousTestFunction):
+class NegativeForrester(AbstractContinuousTestFunction):
     """
-    Forrester function introduced in 'Engineering design via surrogate modelling: a
-    practical guide' (Forrester et al. 2008), rescaled to have zero mean and unit
-    variance over $[0, 1]$.
+    Negated Forrester function. The original Forrester function was introduced in
+    'Engineering design via surrogate modelling: a practical guide' (Forrester et al.
+    2008), rescaled to have zero mean and unit variance over $[0, 1]$. This class
+    returns the negation of the original function, turning it into a maximisation
+    problem.
     """
 
     search_space = ContinuousSearchSpace(
         lower_bounds=jnp.array([0.0]),
         upper_bounds=jnp.array([1.0]),
     )
-    minimizer = jnp.array([[0.75725]])
-    minimum = jnp.array([[-1.45280]])
+    maximizer = jnp.array([[0.75725]])
+    maximum = jnp.array([[1.45280]])
 
     def evaluate(self, x: Float[Array, "N D"]) -> Float[Array, "N 1"]:
         mean = 0.45321
         std = jnp.sqrt(19.8577)
-        return (((6 * x - 2) ** 2) * jnp.sin(12 * x - 4) - mean) / std
+        return -(((6 * x - 2) ** 2) * jnp.sin(12 * x - 4) - mean) / std
 
 
 @dataclass
-class LogarithmicGoldsteinPrice(AbstractContinuousTestFunction):
+class NegativeLogarithmicGoldsteinPrice(AbstractContinuousTestFunction):
     """
-    Logarithmic Goldstein-Price function introduced in 'A benchmark of kriging-based
-    infill criteria for noisy optimization' (Picheny et al. 2013), which has zero mean
-    and unit variance over $[0, 1]^2$.
+    Negated Logarithmic Goldstein-Price function. The original was introduced in 'A
+    benchmark of kriging-based infill criteria for noisy optimization' (Picheny et al.
+    2013), which has zero mean and unit variance over $[0, 1]^2$. This class returns
+    the negation of the original function, turning it into a maximisation problem.
     """
 
     search_space = ContinuousSearchSpace(
         lower_bounds=jnp.array([0.0, 0.0]),
         upper_bounds=jnp.array([1.0, 1.0]),
     )
-    minimizer = jnp.array([[0.5, 0.25]])
-    minimum = jnp.array([[-3.12913]])
+    maximizer = jnp.array([[0.5, 0.25]])
+    maximum = jnp.array([[3.12913]])
 
     def evaluate(self, x: Float[Array, "N D"]) -> Float[Array, "N 1"]:
         x1 = 4.0 * x[:, 0] - 2.0
@@ -149,21 +152,22 @@ class LogarithmicGoldsteinPrice(AbstractContinuousTestFunction):
             - 36.0 * x1 * x2
             + 27.0 * (x2**2)
         )
-        return ((jnp.log((a * b)) - 8.693) / 2.427).reshape(-1, 1)
+        return -((jnp.log((a * b)) - 8.693) / 2.427).reshape(-1, 1)
 
 
 @dataclass
-class Quadratic(AbstractContinuousTestFunction):
+class NegativeQuadratic(AbstractContinuousTestFunction):
     """
-    Toy quadratic function defined over $[0, 1]$.
+    Negated toy quadratic function defined over $[0, 1]$. Has a maximum of 0.0 at
+    $x = 0.5$.
     """
 
     search_space = ContinuousSearchSpace(
         lower_bounds=jnp.array([0.0]),
         upper_bounds=jnp.array([1.0]),
     )
-    minimizer = jnp.array([[0.5]])
-    minimum = jnp.array([[0.0]])
+    maximizer = jnp.array([[0.5]])
+    maximum = jnp.array([[0.0]])
 
     def evaluate(self, x: Float[Array, "N D"]) -> Float[Array, "N 1"]:
-        return (x - 0.5) ** 2
+        return -((x - 0.5) ** 2)

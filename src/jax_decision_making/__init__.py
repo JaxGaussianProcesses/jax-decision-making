@@ -23,9 +23,9 @@ from jax_decision_making.search_space import (
 )
 from jax_decision_making.test_functions import (
     AbstractContinuousTestFunction,
-    Forrester,
-    LogarithmicGoldsteinPrice,
-    Quadratic,
+    NegativeForrester,
+    NegativeLogarithmicGoldsteinPrice,
+    NegativeQuadratic,
 )
 from jax_decision_making.utility_functions import (
     AbstractSinglePointUtilityFunctionBuilder,
@@ -54,10 +54,10 @@ __all__ = [
     "ContinuousSearchSpace",
     "UtilityDrivenDecisionMaker",
     "AbstractContinuousTestFunction",
-    "Forrester",
-    "LogarithmicGoldsteinPrice",
+    "NegativeForrester",
+    "NegativeLogarithmicGoldsteinPrice",
     "PosteriorHandler",
-    "Quadratic",
+    "NegativeQuadratic",
     "SinglePointUtilityFunction",
     "ThompsonSampling",
 ]

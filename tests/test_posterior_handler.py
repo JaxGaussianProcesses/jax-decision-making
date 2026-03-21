@@ -41,7 +41,7 @@ import pytest
 
 from jax_decision_making.posterior_handler import PosteriorHandler
 from jax_decision_making.test_functions import (
-    Forrester,
+    NegativeForrester,
     PoissonTestFunction,
 )
 
@@ -84,7 +84,7 @@ def test_get_optimized_posterior_with_no_key_raises_error():
         optimizer=ox.adam(learning_rate=0.01),
         num_optimization_iters=10,
     )
-    toy_function = Forrester()
+    toy_function = NegativeForrester()
     dataset = toy_function.generate_dataset(num_points=5, key=jr.key(42))
     with pytest.raises(ValueError):
         posterior_handler.get_posterior(dataset=dataset, optimize=True)
@@ -102,7 +102,7 @@ def test_update_and_optimize_posterior_with_no_key_raises_error():
         optimizer=ox.adam(learning_rate=0.01),
         num_optimization_iters=10,
     )
-    toy_function = Forrester()
+    toy_function = NegativeForrester()
     dataset = toy_function.generate_dataset(num_points=5, key=jr.key(42))
     initial_posterior = posterior_handler.get_posterior(dataset=dataset, optimize=False)
     with pytest.raises(ValueError):
@@ -115,7 +115,7 @@ def test_update_and_optimize_posterior_with_no_key_raises_error():
 @pytest.mark.parametrize(
     "likelihood_builder, training_objective, test_function",
     [
-        (gaussian_likelihood_builder, conjugate_mll, Forrester()),
+        (gaussian_likelihood_builder, conjugate_mll, NegativeForrester()),
         (
             poisson_likelihood_builder,
             non_conjugate_mll,
@@ -128,7 +128,7 @@ def test_get_posterior_no_optimization_correct_num_datapoints_and_not_optimized(
     num_datapoints: int,
     likelihood_builder: Callable[[int], AbstractLikelihood],
     training_objective: Objective,
-    test_function: Union[Forrester, PoissonTestFunction],
+    test_function: Union[NegativeForrester, PoissonTestFunction],
 ):
     mean_function = Constant(constant=Real(value=jnp.array([1.0])))
     kernel = Matern52(lengthscale=jnp.array([0.5]), variance=jnp.array(1.0))
@@ -152,7 +152,7 @@ def test_get_posterior_no_optimization_correct_num_datapoints_and_not_optimized(
 @pytest.mark.parametrize(
     "likelihood_builder, training_objective, test_function",
     [
-        (gaussian_likelihood_builder, conjugate_mll, Forrester()),
+        (gaussian_likelihood_builder, conjugate_mll, NegativeForrester()),
         (
             poisson_likelihood_builder,
             non_conjugate_mll,
@@ -165,7 +165,7 @@ def test_get_posterior_with_optimization_correct_num_datapoints_and_optimized(
     num_datapoints: int,
     likelihood_builder: Callable[[int], AbstractLikelihood],
     training_objective: Objective,
-    test_function: Union[Forrester, PoissonTestFunction],
+    test_function: Union[NegativeForrester, PoissonTestFunction],
 ):
     mean_function = Constant(constant=Real(value=jnp.array([1.0])))
     kernel = Matern52(lengthscale=jnp.array([0.5]), variance=jnp.array(1.0))
@@ -195,7 +195,7 @@ def test_get_posterior_with_optimization_correct_num_datapoints_and_optimized(
 @pytest.mark.parametrize(
     "likelihood_builder, training_objective, test_function",
     [
-        (gaussian_likelihood_builder, conjugate_mll, Forrester()),
+        (gaussian_likelihood_builder, conjugate_mll, NegativeForrester()),
         (
             poisson_likelihood_builder,
             non_conjugate_mll,
@@ -208,7 +208,7 @@ def test_update_posterior_no_optimize_same_prior_parameters_and_different_num_da
     initial_num_datapoints: int,
     likelihood_builder: Callable[[int], AbstractLikelihood],
     training_objective: Objective,
-    test_function: Union[Forrester, PoissonTestFunction],
+    test_function: Union[NegativeForrester, PoissonTestFunction],
 ):
     mean_function = Constant(constant=Real(value=jnp.array([1.0])))
     kernel = Matern52(lengthscale=jnp.array([0.5]), variance=jnp.array(1.0))
@@ -252,7 +252,7 @@ def test_update_posterior_no_optimize_same_prior_parameters_and_different_num_da
 @pytest.mark.parametrize(
     "likelihood_builder, training_objective, test_function",
     [
-        (gaussian_likelihood_builder, conjugate_mll, Forrester()),
+        (gaussian_likelihood_builder, conjugate_mll, NegativeForrester()),
         (
             poisson_likelihood_builder,
             non_conjugate_mll,
@@ -265,7 +265,7 @@ def test_update_posterior_with_optimization_updated_prior_parameters_and_differe
     initial_num_datapoints: int,
     likelihood_builder: Callable[[int], AbstractLikelihood],
     training_objective: Objective,
-    test_function: Union[Forrester, PoissonTestFunction],
+    test_function: Union[NegativeForrester, PoissonTestFunction],
 ):
     mean_function = Constant(constant=Real(value=jnp.array([1.0])))
     kernel = Matern52(lengthscale=jnp.array([0.5]), variance=jnp.array(1.0))

@@ -84,14 +84,14 @@ cols = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 #
 # In BO, and sequential decision making in general, we will often have a black-box
 # function of interest which we can evaluate. In this notebook we'll be using the
-# Forrester function as our objective to minimise:
+# negated Forrester function as our objective to maximise:
 #
-# $$f(x) = (6x - 2)^2\sin(12x-4)$$
+# $$f(x) = -\left[(6x - 2)^2\sin(12x-4)\right]$$
 
 
 # %%
-def forrester(x: Float[Array, "N 1"]) -> Float[Array, "N 1"]:
-    return (6 * x - 2) ** 2 * jnp.sin(12 * x - 4)
+def neg_forrester(x: Float[Array, "N 1"]) -> Float[Array, "N 1"]:
+    return -((6 * x - 2) ** 2 * jnp.sin(12 * x - 4))
 
 
 # %% [markdown]
@@ -110,7 +110,7 @@ def forrester(x: Float[Array, "N 1"]) -> Float[Array, "N 1"]:
 # us to easily distinguish between these different observations.
 
 # %%
-function_evaluator = build_function_evaluator({OBJECTIVE: forrester})
+function_evaluator = build_function_evaluator({OBJECTIVE: neg_forrester})
 
 # %% [markdown]
 # ## The Search Space
@@ -220,7 +220,7 @@ posterior_handlers = {OBJECTIVE: posterior_handler}
 # querying the black-box function at any point within the domain of interest. We can then
 # *maximise* this function to decide which point to query next. In this case we'll be
 # using Thompson sampling as a utility function for determining where to query next. With
-# this function we simply draw a sample from the GP posterior, and choose the minimizer
+# this function we simply draw a sample from the GP posterior, and choose the maximiser
 # of the sample as the point to query next. In the `decision_making` framework we create
 # `UtilityFunctionBuilder` objects. Currently, we only support
 # `SinglePointUtilityFunction`s, which are utility functions which characterise the
@@ -301,9 +301,9 @@ def plot_bo_iteration(
     posterior = dm.posteriors[OBJECTIVE]
     dataset = dm.datasets[OBJECTIVE]
     plt_x = jnp.linspace(0, 1, 1000).reshape(-1, 1)
-    forrester_y = forrester(plt_x.squeeze(axis=-1))
+    neg_forrester_y = neg_forrester(plt_x.squeeze(axis=-1))
     utility_fn = dm.current_utility_functions[0]
-    sample_y = -utility_fn(plt_x)
+    sample_y = utility_fn(plt_x)
 
     latent_dist = posterior.predict(plt_x, train_data=dataset)
     predictive_dist = posterior.likelihood(latent_dist)
@@ -338,8 +338,8 @@ def plot_bo_iteration(
     ax.plot(plt_x.squeeze(), sample_y, label="Posterior Sample")
     ax.plot(
         plt_x.squeeze(),
-        forrester_y,
-        label="Forrester Function",
+        neg_forrester_y,
+        label="Neg. Forrester Function",
         color=cols[0],
         linestyle="--",
         linewidth=2,
@@ -348,7 +348,7 @@ def plot_bo_iteration(
     ax.scatter(dataset.X, dataset.y, label="Observations", color=cols[2], zorder=2)
     ax.scatter(
         last_queried_points[0],
-        -utility_fn(last_queried_points[0][None, ...]),
+        utility_fn(last_queried_points[0][None, ...]),
         label="Posterior Sample Optimum",
         marker="*",
         color=cols[3],
@@ -381,7 +381,7 @@ results = dm.run(
 )
 
 # %% [markdown]
-# We can see that our `DecisionMaker` is successfully able to find the minimimizer of the
+# We can see that our `DecisionMaker` is successfully able to find the maximiser of the
 # black box function!
 #
 #

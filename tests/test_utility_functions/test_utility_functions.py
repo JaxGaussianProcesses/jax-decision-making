@@ -27,8 +27,8 @@ import pytest
 
 from jax_decision_making.test_functions.continuous_functions import (
     AbstractContinuousTestFunction,
-    Forrester,
-    LogarithmicGoldsteinPrice,
+    NegativeForrester,
+    NegativeLogarithmicGoldsteinPrice,
 )
 from jax_decision_making.utility_functions.base import (
     AbstractSinglePointUtilityFunctionBuilder,
@@ -60,8 +60,8 @@ def test_utility_function_no_objective_posterior_raises_error(
     utility_function_kwargs: dict,
 ):
     key = jr.key(42)
-    forrester = Forrester()
-    dataset = forrester.generate_dataset(num_points=10, key=key)
+    neg_forrester = NegativeForrester()
+    dataset = neg_forrester.generate_dataset(num_points=10, key=key)
     posterior = generate_dummy_conjugate_posterior(dataset)
     posteriors = {"CONSTRAINT": posterior}
     datasets = {OBJECTIVE: dataset}
@@ -88,8 +88,8 @@ def test_utility_function_no_objective_dataset_raises_error(
     utility_function_kwargs: dict,
 ):
     key = jr.key(42)
-    forrester = Forrester()
-    dataset = forrester.generate_dataset(num_points=10, key=key)
+    neg_forrester = NegativeForrester()
+    dataset = neg_forrester.generate_dataset(num_points=10, key=key)
     posterior = generate_dummy_conjugate_posterior(dataset)
     posteriors = {OBJECTIVE: posterior}
     datasets = {"CONSTRAINT": dataset}
@@ -116,8 +116,8 @@ def test_non_conjugate_posterior_raises_error(
     utility_function_kwargs: dict,
 ):
     key = jr.key(42)
-    forrester = Forrester()
-    dataset = forrester.generate_dataset(num_points=10, key=key)
+    neg_forrester = NegativeForrester()
+    dataset = neg_forrester.generate_dataset(num_points=10, key=key)
     posterior = generate_dummy_non_conjugate_posterior(dataset)
     posteriors = {OBJECTIVE: posterior}
     datasets = {OBJECTIVE: dataset}
@@ -138,7 +138,7 @@ def test_non_conjugate_posterior_raises_error(
 )
 @pytest.mark.parametrize(
     "test_target_function",
-    [(Forrester()), (LogarithmicGoldsteinPrice())],
+    [(NegativeForrester()), (NegativeLogarithmicGoldsteinPrice())],
 )
 @pytest.mark.parametrize("num_test_points", [50, 100])
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10)])
