@@ -28,6 +28,7 @@ for features you would like to see implemented. These might include:
 - [jax-decision-making](#jax-decision-making)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
+  - [Contributing](#contributing)
   - [License](#license)
 
 ## Installation
@@ -35,6 +36,11 @@ for features you would like to see implemented. These might include:
 ```console
 pip install jax-decision-making
 ```
+
+## Contributing
+
+Please refer to the [contributing guidelines](CONTRIBUTING.md) file for guidelines on
+how to contribute to the project.
 
 ## License
 
