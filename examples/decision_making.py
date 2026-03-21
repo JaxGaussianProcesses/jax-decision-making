@@ -214,7 +214,7 @@ posterior_handlers = {OBJECTIVE: posterior_handler}
 # %% [markdown]
 # ## The Utility Function
 #
-# Now all that remains for us to define is the utiliy function, and a way of maximising
+# Now all that remains for us to define is the utility function, and a way of maximising
 # it. Within the utility-driven decision making framework, we define a utility function,
 # often using our GP surrogates, which characterises the *utility*, or *usefulness*, of
 # querying the black-box function at any point within the domain of interest. We can then
@@ -258,7 +258,7 @@ acquisition_maximizer = ContinuousSinglePointUtilityMaximizer(
 # %% [markdown]
 #
 # It is worth noting that `ThompsonSampling` is not the only utility function we could use,
-# since our module also provides e.g. `ProbabilityOfImprovement`, `ExpectedImprovment`,
+# since our module also provides e.g. `ProbabilityOfImprovement`, `ExpectedImprovement`,
 # which were briefly discussed in [our previous introduction to Bayesian optimisation](https://docs.jaxgaussianprocesses.com/_examples/bayesian_optimisation/).
 
 

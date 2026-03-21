@@ -85,7 +85,7 @@ def test_continuous_maximizer_raises_error_with_erroneous_num_restarts(
 )
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(10)])
 @pytest.mark.parametrize("num_restarts", [1, 3])
-def test_continous_maximizer_returns_same_point_with_same_key(
+def test_continuous_maximizer_returns_same_point_with_same_key(
     test_function: AbstractContinuousTestFunction,
     dimensionality: int,
     key: KeyArray,

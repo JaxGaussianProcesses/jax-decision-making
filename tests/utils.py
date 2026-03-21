@@ -59,8 +59,8 @@ class QuadraticSinglePointUtilityFunctionBuilder(
         key: KeyArray,
     ) -> SinglePointUtilityFunction:
         test_function = Quadratic()
-        return lambda x: -1.0 * test_function.evaluate(
-            x
+        return lambda x: (
+            -1.0 * test_function.evaluate(x)
         )  # Utility functions are *maximised*
 
 

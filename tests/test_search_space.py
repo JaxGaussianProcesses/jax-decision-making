@@ -62,7 +62,7 @@ def test_continuous_search_space_dtype_consistency(
         (jnp.array([0.0, 0.0]), jnp.array([1.0])),
     ],
 )
-def test_continous_search_space_bounds_shape_consistency(
+def test_continuous_search_space_bounds_shape_consistency(
     lower_bounds: Float[Array, " D1"], upper_bounds: Float[Array, " D2"]
 ):
     with pytest.raises((BeartypeCallHintParamViolation, TypeCheckError, ValueError)):
@@ -112,7 +112,7 @@ def test_continuous_search_space_dimensionality(
     ],
 )
 @pytest.mark.parametrize("num_points", [0, -1])
-def test_continous_search_space_invalid_sample_num_points(
+def test_continuous_search_space_invalid_sample_num_points(
     continuous_search_space: ContinuousSearchSpace, num_points: int
 ):
     with pytest.raises(ValueError):
@@ -150,7 +150,7 @@ def test_continuous_search_space_sample_shape(
     ],
 )
 @pytest.mark.parametrize("key", [jr.key(42), jr.key(5)])
-def test_continous_search_space_sample_same_key_same_samples(
+def test_continuous_search_space_sample_same_key_same_samples(
     continuous_search_space: ContinuousSearchSpace, key: jr.key
 ):
     sample_one = continuous_search_space.sample(num_points=100, key=key)

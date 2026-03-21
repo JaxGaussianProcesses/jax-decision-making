@@ -120,9 +120,7 @@ def test_noisy_dataset(
 ):
     num_points = 100
     dataset = test_function.generate_dataset(num_points, jr.key(42), obs_stddev)
-    noise = dist.Normal(
-        jnp.zeros(num_points), obs_stddev * jnp.ones(num_points)
-    )
+    noise = dist.Normal(jnp.zeros(num_points), obs_stddev * jnp.ones(num_points))
     expected_y = test_function(dataset.X) + jnp.transpose(
         noise.sample(jr.key(42), sample_shape=(1,))
     )
