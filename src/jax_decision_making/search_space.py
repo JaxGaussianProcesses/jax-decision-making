@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-import math
 from abc import (
     ABC,
     abstractmethod,
@@ -36,22 +35,13 @@ class AbstractSearchSpace(ABC):
     """
 
     @abstractmethod
-    def sample(self, num_points: int, key: KeyArray) -> Float[Array, "N D"]:
+    def sample(self, num_points: int, key: KeyArray):
         """Sample points from the search space.
         Args:
             num_points (int): Number of points to be sampled from the search space.
             key (KeyArray): JAX PRNG key.
         Returns:
-            Float[Array, "N D"]: `num_points` points sampled from the search space.
-        """
-        raise NotImplementedError
-
-    @property
-    @abstractmethod
-    def dimensionality(self) -> int:
-        """Dimensionality of the search space.
-        Returns:
-            int: Dimensionality of the search space.
+            A batch of `num_points` points sampled from the search space.
         """
         raise NotImplementedError
 
@@ -77,23 +67,21 @@ class ContinuousSearchSpace(AbstractSearchSpace):
     def dimensionality(self) -> int:
         return self.lower_bounds.shape[0]
 
-    def sample(self, num_points: int, key: KeyArray) -> Float[Array, "N D"]:
+    def sample(self, num_points: int, key: KeyArray) -> Float[Array, "{num_points} D"]:
         """Sample points from the search space using a Sobol sequence.
 
         Args:
             num_points (int): Number of points to be sampled from the search space.
             key (KeyArray): JAX PRNG key.
         Returns:
-            Float[Array, "N D"]: `num_points` points sampled using the Sobol sequence
-            from the search space.
+            `num_points` points sampled from the search space using a Sobol sequence.
         """
         if num_points <= 0:
             raise ValueError("Number of points must be greater than 0.")
 
         seed = int(jax.random.bits(key, dtype=jnp.uint32))
         sampler = Sobol(d=self.dimensionality, scramble=True, rng=seed)
-        n_pow2 = 2 ** int(math.ceil(math.log2(max(num_points, 1))))
-        initial_sample = jnp.array(sampler.random(n_pow2))[:num_points]
+        initial_sample = jnp.array(sampler.random(num_points))
         return (
             self.lower_bounds + (self.upper_bounds - self.lower_bounds) * initial_sample
         )
