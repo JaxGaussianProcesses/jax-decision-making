@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "jax-decision-making"
 dynamic = ["version"]
-description = 'Decision making with Gaussian processes in JAX.'
+description = 'DEPRECATED - use decijax instead for decision-making with Gaussian processes in JAX.'
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
@@ -15,7 +15,7 @@ authors = [
   { name = "Thomas Christie", email = "thomashamish@hotmail.com" },
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 7 - Inactive",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -56,7 +56,6 @@ dev = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/U.N. Owen/jax-decision-making#readme"
 Issues = "https://github.com/JaxGaussianProcesses/jax-decision-making/issues"
 Source = "https://github.com/JaxGaussianProcesses/jax-decision-making"
 
@@ -84,7 +83,11 @@ line-length = 88
 target-version = ["py310"]
 
 [tool.pytest.ini_options] # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
-filterwarnings = ["error", "ignore::DeprecationWarning", "ignore:The balance properties of Sobol:UserWarning"]
+filterwarnings = [
+  "error",
+  "ignore::DeprecationWarning",
+  "ignore:The balance properties of Sobol:UserWarning",
+]
 testpaths = ["tests"]
 xfail_strict = true
 
